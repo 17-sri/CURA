@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
+import java.util.Random;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.Logger;
@@ -28,7 +29,8 @@ public class BaseClass {
 		FileReader file = new FileReader(".//src//test//resources//config.properties");
 		properties = new Properties();
 		properties.load(file);
-
+		
+		
 		driver = new ChromeDriver();
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
@@ -39,7 +41,7 @@ public class BaseClass {
 
 	@AfterClass
 	public void tearDown() {
-		driver.quit();
+		//driver.quit();
 	}
 	public String randomString() {
 		String generatedString = RandomStringUtils.randomAlphabetic(50);
@@ -47,8 +49,9 @@ public class BaseClass {
 	}
 	public String tomorrowdate() {
 		LocalDate tomorrow = LocalDate.now().plusDays(1);
-		String tomorrowDate = tomorrow.format(DateTimeFormatter.ISO_DATE);
-		return tomorrowDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+        String tomorrowDate = tomorrow.format(formatter);
+        return tomorrowDate;
 	}
 	
 	
