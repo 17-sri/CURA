@@ -43,6 +43,10 @@ public class BaseClass {
 	public void tearDown() {
 		//driver.quit();
 	}
+	@AfterClass
+	public void logout() {
+		
+	}
 	public String randomString() {
 		String generatedString = RandomStringUtils.randomAlphabetic(50);
 		return generatedString;
