@@ -16,5 +16,4 @@ public class TC001_LoginTest extends BaseClass {
 		loginPage.setPassword(properties.getProperty("password"));
 		loginPage.clickLogin();
 	}
-
 }
