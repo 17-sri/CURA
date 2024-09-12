@@ -9,13 +9,22 @@ public class LoginPage extends BasePage {
 	public LoginPage(WebDriver driver) {
 		super(driver);
 	}
+	@FindBy(css = ".fa.fa-bars")
+	WebElement btnOptions;
+	@FindBy(xpath = "//a[text()='Login']")
+	WebElement optionlogin;
 	@FindBy(xpath = "//input[@id='txt-username']")
 	WebElement txtUserName;
 	@FindBy(xpath = "//input[@id='txt-password']")
 	WebElement txtPassword;
 	@FindBy(xpath = "//button[@id='btn-login']")
 	WebElement btnLogin;
-	
+	public void options() {
+		btnOptions.click();
+	}
+	public void optionLogin() {
+		optionlogin.click();
+	}
 	public void setUserName(String uName) {
 		txtUserName.sendKeys(uName);
 	}
