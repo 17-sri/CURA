@@ -5,8 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Properties;
 
@@ -45,20 +43,11 @@ public class BaseClass {
 	public void tearDown() {
 		driver.quit();
 	}
-	@AfterClass
-	public void logout() {
-		
-	}
 	public String randomString() {
 		String generatedString = RandomStringUtils.randomAlphabetic(50);
 		return generatedString;
 	}
-	public String tomorrowdate() {
-		LocalDate tomorrow = LocalDate.now().plusDays(1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
-        String tomorrowDate = tomorrow.format(formatter);
-        return tomorrowDate;
-	}
+	
 	public String getScreenshot(String testCaseName, WebDriver driver) throws IOException {
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 		TakesScreenshot ts = (TakesScreenshot) driver;
