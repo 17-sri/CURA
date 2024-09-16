@@ -18,13 +18,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
+import pageObjects.LoginPage;
+import pageObjects.Logout;
 
 public class BaseClass {
 	public static WebDriver driver;
 	public Logger logger; // log4j2
 	public Properties properties;
-	//MakeAppointment makeAppnt = new MakeAppointment(driver);
-	
+	// MakeAppointment makeAppnt = new MakeAppointment(driver);
 
 	@BeforeClass
 	public void setUp() throws IOException {
@@ -36,26 +37,40 @@ public class BaseClass {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.get(properties.getProperty("appURL"));
+	}
 
+	public void login() {
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.options();
+		loginPage.optionLogin();
+		loginPage.setUserName(properties.getProperty("userName"));
+		loginPage.setPassword(properties.getProperty("password"));
+		loginPage.clickLogin();
+	}
+
+	public void logout() {
+		Logout logout = new Logout(driver);
+		logout.options();
+		logout.logout();
 	}
 
 	@AfterClass
 	public void tearDown() {
 		driver.quit();
 	}
+
 	public String randomString() {
 		String generatedString = RandomStringUtils.randomAlphabetic(50);
 		return generatedString;
 	}
-	
+
 	public String getScreenshot(String testCaseName, WebDriver driver) throws IOException {
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 		TakesScreenshot ts = (TakesScreenshot) driver;
 		File source = ts.getScreenshotAs(OutputType.FILE);
-		String filePath = System.getProperty("user.dir") + "//screenshots//" + testCaseName + timeStamp+ ".png";
+		String filePath = System.getProperty("user.dir") + "//screenshots//" + testCaseName + timeStamp + ".png";
 		File file = new File(filePath);
 		FileUtils.copyFile(source, file);
 		return filePath;
 	}
-
 }
